@@ -50,17 +50,16 @@ while game_is_on:
         scoreboard.update_score()
         scoreboard.refresh_scoreboard()
 
-    if -300 < snake.segment_list[0].xcor() < 300 and -300 < snake.segment_list[0].ycor() < 300:
-        game_is_on = True
-    else:
+    if not -300 < snake.segment_list[0].xcor() < 300 or not -300 < snake.segment_list[0].ycor() < 300:
         game_is_on = False
-    for segment in snake.segment_list:
-        if snake.segment_list[0] == segment:
-            pass
-        elif snake.segment_list[0].distance(segment) < 10:
+
+# Checking if the snake bit itself
+
+    for segment in snake.segment_list[1:]: # For loop for everything from the second index
+        if snake.segment_list[0].distance(segment) < 10:
             game_is_on = False
+
 
 scoreboard.game_over()
 
-print("Game Over")
 screen.exitonclick()
