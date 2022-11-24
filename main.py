@@ -40,9 +40,9 @@ screen.onkey(fun=snake.down, key="Down")
 game_is_on = True
 # Game is on until the x or y goes over lines
 while game_is_on:
+    snake.move()
     screen.update()
     time.sleep(0.1)
-    snake.move()
 
     if (snake.segment_list[0].distance(food)) < 20:  # Checks if the distance between the snake and the food is < 20
         food.refresh()
@@ -51,15 +51,15 @@ while game_is_on:
         scoreboard.refresh_scoreboard()
 
     if not -300 < snake.segment_list[0].xcor() < 300 or not -300 < snake.segment_list[0].ycor() < 300:
-        game_is_on = False
+        # game_is_on = False
+        scoreboard.reset()
+        snake.reset()
+    # Checking if the snake bit itself
 
-# Checking if the snake bit itself
-
-    for segment in snake.segment_list[1:]: # For loop for everything from the second index
+    for segment in snake.segment_list[1:]:  # For loop for everything from the second index
         if snake.segment_list[0].distance(segment) < 10:
-            game_is_on = False
-
-
-scoreboard.game_over()
+            # game_is_on = False
+            scoreboard.reset()
+            snake.reset()
 
 screen.exitonclick()

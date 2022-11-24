@@ -14,22 +14,28 @@ class Snake:
         self.ycor = 0
         self.segment_list = []
         # This initializes the 3 squares
+        self.create_snake()
+
+    def create_snake(self):
         for position in starting_positions:
             self.add_segment(position)
 
     def add_segment(self, position):
         snake = Turtle(shape="square")
-        snake.speed("fastest")
-        snake.hideturtle()
         snake.color("white")
         snake.penup()
-        snake.showturtle()
-        snake.setpos(position)
-        snake.showturtle()
+        snake.goto(position)
         self.segment_list.append(snake)
 
     def extend(self):
         self.add_segment(self.segment_list[-1].position())
+
+    def reset(self):
+        for segment in self.segment_list:
+            segment.hideturtle()
+        self.segment_list.clear()
+        self.create_snake()
+        self.move()
 
     def move(self):
         for seg_num in range(len(self.segment_list) - 1, 0, -1):  # Loops through all the segments to segment_list[0]
